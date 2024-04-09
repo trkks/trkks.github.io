@@ -12,17 +12,15 @@ function RadioSelector({
         {
             options.map((x, i) =>
                 <div key={x}>
-                    <label>
-                        <input
-                            type="radio"
-                            id={x}
-                            value={x}
-                            name={name}
-                            checked={x == selectedValue}
-                            readOnly={true}
-                        />
-                        {x}
-                    </label>
+                    <label htmlFor={x}>{x}</label>
+                    <input
+                        type="radio"
+                        id={x}
+                        value={x}
+                        name={name}
+                        checked={x == selectedValue}
+                        readOnly={true}
+                    />
                 </div>
             )
         }
@@ -30,6 +28,7 @@ function RadioSelector({
 }
 
 function SettingsBar({
+    langs,
     sourceLang,
     targetLang,
     setSourceLang,
@@ -43,13 +42,13 @@ function SettingsBar({
         }}>
         <RadioSelector
             name="source language"
-            options={["FI", "RU"]}
+            options={langs}
             selectedValue={sourceLang}
             onSelectedValueChange={setSourceLang}
         />
         <RadioSelector
             name="target language"
-            options={["FI", "RU"]}
+            options={langs}
             selectedValue={targetLang}
             onSelectedValueChange={setTargetLang}
         />
@@ -59,7 +58,6 @@ function SettingsBar({
 function TranslationArea({
     sourceWord,
     targetWord,
-    onSourceWordChange,
     onTargetWordChange,
     points
 }) {
@@ -74,7 +72,7 @@ function TranslationArea({
             <input
                 type="text"
                 value={sourceWord}
-                onChange={e => onSourceWordChange(e.target.value)}
+                readOnly={true}
             />
         </label>
         <label>
@@ -138,7 +136,7 @@ function VirtualKeyboard({
     charactersString,
     targetWord,
     setTargetWord,
-    checkSourceWord
+    onEnterKeyInput
 }) {
 ;
     const backSpace = <Keycap
@@ -168,7 +166,7 @@ function VirtualKeyboard({
         <Keycap
             key={"↵"}
             character={"↵"}
-            onKeyInput={_ => checkSourceWord()}
+            onKeyInput={onEnterKeyInput}
             width="95px"
         />
     );
@@ -187,25 +185,48 @@ function VirtualKeyboard({
 }
 
 function Page() {
-    const LANGS = ["FI", "RU"];
-    const DICTIONARIES = {};
-    DICTIONARIES[LANGS[0]] = {};
-    DICTIONARIES[LANGS[1]] = {};
-    DICTIONARIES[LANGS[0]][LANGS[1]] = {
-        "moro": "privjet"
-    };
-    DICTIONARIES[LANGS[1]][LANGS[0]] = {
-        "privjet": "moro"
+    const EN_RU_WORDS = [
+        ["hello"        , "Привет"     ],
+        ["dog"          , "собака"     ],
+        ["web browser"  , "веб-браузер"],
+    ];
+    const TRANSLATION_TARGETS = {
+        "RU": Object.fromEntries(EN_RU_WORDS),
+        "EN": Object.fromEntries(
+            EN_RU_WORDS.map(([lhs, rhs]) => [rhs, lhs])
+        ),
+    }
+    // For simplicity, translations from the same language to itself are
+    // allowed (prevents having to juggle swapping languages and React
+    // re-rendering in between).
+    const DICTIONARIES = {
+        "EN": TRANSLATION_TARGETS,
+        "RU": TRANSLATION_TARGETS
     };
 
-    const [sourceLang, setSourceLang] = useState(LANGS[1]);
-    const [targetLang, setTargetLang] = useState(LANGS[0]);
-    const [sourceWord, setSourceWord] = useState("privjet");
-    const [targetWord, setTargetWord] = useState("");
+    // The first dimension tells all the available source languages.
+    const LANGS = Object.keys(DICTIONARIES);
+
+    // Amount of points is used to select the next word-pair.
     const [points, setPoints] = useState(0);
+
+    const [sourceLang, setSourceLang] = useState(LANGS[0]);
+    const [targetLang, setTargetLang] = useState(LANGS[1]);
+
+    const sourceWords = Object.keys(DICTIONARIES[sourceLang][targetLang]);
+    const [sourceWord, setSourceWord] = useState(
+        sourceWords[points % sourceWords.length]
+    );
+    const [targetWord, setTargetWord] = useState("");
+
+    const swapLangs = (newSourceLang) => {
+        setTargetLang(sourceLang)
+        setSourceLang(newSourceLang);
+    };
 
     return <div>
         <SettingsBar
+            langs={LANGS}
             sourceLang={sourceLang}
             targetLang={targetLang}
             setSourceLang={setSourceLang}
@@ -214,7 +235,6 @@ function Page() {
         <TranslationArea
             sourceWord={sourceWord}
             targetWord={targetWord}
-            onSourceWordChange={setSourceWord}
             onTargetWordChange={setTargetWord}
             points={points}
         />
@@ -222,9 +242,16 @@ function Page() {
             charactersString="qwertyuiopåasdfghjklöäzxcvbnm"
             targetWord={targetWord}
             setTargetWord={setTargetWord}
-            checkSourceWord={() => {
-                if (targetWord == DICTIONARIES[sourceLang][targetLang][sourceWord]) {
+            // NOTE: Just React things (I guess): If this checker-callback
+            // took an argument named 'targetWord_' (to show the reader it is
+            // the same as 'targetWord' but as the callback argument) the
+            // parameter would be undefined and not the input string :----).
+            onEnterKeyInput={() => {
+                const correctAnswer = DICTIONARIES[sourceLang][targetLang][sourceWord];
+                if (targetWord.toLowerCase() === correctAnswer.toLowerCase()) {
                     setPoints(points + 1);
+                    // Loop back to start when run out of words.
+                    setSourceWord(sourceWords[points % sourceWords.length]);
                 }
             }}
         />
