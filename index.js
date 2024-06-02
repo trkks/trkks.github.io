@@ -18,7 +18,7 @@ function RadioSelector({
                         id={x}
                         value={x}
                         name={name}
-                        checked={x == selectedValue}
+                        checked={x === selectedValue}
                         readOnly={true}
                     />
                 </div>
@@ -38,7 +38,7 @@ function SettingsBar({
         style={{
             display: "flex",
             justifyContent: "space-around",
-            marginTop: "10%",
+            marginTop: "3%",
         }}>
         <RadioSelector
             name="source language"
@@ -63,9 +63,7 @@ function TranslationArea({
 }) {
     return <div
         style={{
-            display: "flex",
-            justifyContent: "space-around",
-            marginTop: "10%",
+            marginTop: "3%",
         }}>
         <label>
             Source word:
@@ -81,14 +79,6 @@ function TranslationArea({
                 type="text"
                 value={targetWord}
                 onChange={e => onTargetWordChange(e.target.value)}
-            />
-        </label>
-        <label>
-            Points:
-            <input
-                type="number"
-                value={points}
-                readOnly={true}
             />
         </label>
     </div>;
@@ -133,12 +123,11 @@ function KeycapRow({ caps, leftOffset }) {
 }
 
 function VirtualKeyboard({
-    charactersString,
+    alphabetRows,
     targetWord,
     setTargetWord,
     onEnterKeyInput
 }) {
-;
     const backSpace = <Keycap
         key={"⌫"}
         character={"⌫"}
@@ -148,16 +137,18 @@ function VirtualKeyboard({
         width="80px"
     />
 
-    const row1 = Array.from(charactersString)
-        .map(c =>
+    const keyRows = alphabetRows.map(s =>
+        Array.from(s).map(c =>
             <Keycap
                 key={c}
                 character={c}
                 onKeyInput={c => setTargetWord(targetWord + c)}
             />
-        );
-    const row2 = row1.splice(11);
-    const row3 = row2.splice(11);
+        )
+    );
+    const row1 = keyRows[0]
+    const row2 = keyRows[1]
+    const row3 = keyRows[2]
 
 
     // Add enter key (to its place on an ANSI-keyboard) for checking
@@ -173,14 +164,13 @@ function VirtualKeyboard({
 
     return <div
         style={{
-            width: "100%",
             height: "100%",
-            marginTop: "10%"
+            marginTop: "3%"
         }}>
-        <KeycapRow caps={backSpace} leftOffset={`${13 * 60}px`} />
-        <KeycapRow caps={row1} leftOffset="90px" />
-        <KeycapRow caps={row2} leftOffset="105px" />
-        <KeycapRow caps={row3} leftOffset="135px" />
+        <KeycapRow caps={backSpace} leftOffset={`${12 * 60}px`} />
+        <KeycapRow caps={row1} leftOffset="0px" />
+        <KeycapRow caps={row2} leftOffset="15px" />
+        <KeycapRow caps={row3} leftOffset="45px" />
     </div>;
 }
 
@@ -190,6 +180,8 @@ function Page() {
         ["dog"          , "собака"     ],
         ["web browser"  , "веб-браузер"],
     ];
+
+
     const TRANSLATION_TARGETS = {
         "RU": Object.fromEntries(EN_RU_WORDS),
         "EN": Object.fromEntries(
@@ -200,8 +192,15 @@ function Page() {
     // allowed (prevents having to juggle swapping languages and React
     // re-rendering in between).
     const DICTIONARIES = {
-        "EN": TRANSLATION_TARGETS,
-        "RU": TRANSLATION_TARGETS
+        "EN": {
+            "keys": ["qwertyuiop\0\0", "asdfghjkl\0\0\0", "zxcvbnm\0\0\0"],
+            "words": TRANSLATION_TARGETS,
+        },
+        "RU": {
+            // TODO Add "ё"
+            "keys": ["йцукенгшщзхъ", "фывапролджэ", "ячсмитьбю"],
+            "words": TRANSLATION_TARGETS,
+        },
     };
 
     // The first dimension tells all the available source languages.
@@ -213,7 +212,7 @@ function Page() {
     const [sourceLang, setSourceLang] = useState(LANGS[0]);
     const [targetLang, setTargetLang] = useState(LANGS[1]);
 
-    const sourceWords = Object.keys(DICTIONARIES[sourceLang][targetLang]);
+    const sourceWords = Object.keys(DICTIONARIES[sourceLang]["words"][targetLang]);
     const [sourceWord, setSourceWord] = useState(
         sourceWords[points % sourceWords.length]
     );
@@ -223,23 +222,39 @@ function Page() {
         setTargetLang(sourceLang)
         setSourceLang(newSourceLang);
     };
+    console.log(DICTIONARIES);
 
-    return <div>
-        <SettingsBar
-            langs={LANGS}
-            sourceLang={sourceLang}
-            targetLang={targetLang}
-            setSourceLang={setSourceLang}
-            setTargetLang={setTargetLang}
-        />
-        <TranslationArea
-            sourceWord={sourceWord}
-            targetWord={targetWord}
-            onTargetWordChange={setTargetWord}
-            points={points}
-        />
+    return <>
+        <label>
+            Points:
+            <input
+                type="number"
+                value={points}
+                readOnly={true}
+            />
+        </label>
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "10%",
+            }}>
+            <SettingsBar
+                langs={LANGS}
+                sourceLang={sourceLang}
+                targetLang={targetLang}
+                setSourceLang={setSourceLang}
+                setTargetLang={setTargetLang}
+            />
+            <TranslationArea
+                sourceWord={sourceWord}
+                targetWord={targetWord}
+                onTargetWordChange={setTargetWord}
+                points={points}
+            />
+        </div>
         <VirtualKeyboard
-            charactersString="qwertyuiopåasdfghjklöäzxcvbnm"
+            alphabetRows={DICTIONARIES[sourceLang]["keys"]}
             targetWord={targetWord}
             setTargetWord={setTargetWord}
             // NOTE: Just React things (I guess): If this checker-callback
@@ -247,7 +262,7 @@ function Page() {
             // the same as 'targetWord' but as the callback argument) the
             // parameter would be undefined and not the input string :----).
             onEnterKeyInput={() => {
-                const correctAnswer = DICTIONARIES[sourceLang][targetLang][sourceWord];
+                const correctAnswer = DICTIONARIES[sourceLang]["words"][targetLang][sourceWord];
                 if (targetWord.toLowerCase() === correctAnswer.toLowerCase()) {
                     setPoints(points + 1);
                     // Loop back to start when run out of words.
@@ -255,7 +270,7 @@ function Page() {
                 }
             }}
         />
-    </div>;
+    </>;
 }
 
 const container = document.getElementById('root');
