@@ -2,16 +2,56 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alkuaineet</title>
   <style>
-    #root {
-        display: flex;
-        flex-direction: column;
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .item {
+      background-color: #f0f0f0;
+      margin-bottom: 15px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .item p {
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    /* Media query for screens smaller than 768px (mobile screens) */
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+
+      .item {
+        padding: 15px;
+        margin-bottom: 10px;
+      }
+
+      .item p {
+        font-size: 1rem;
+      }
     }
   </style>
   </head>
   <body>
-    <div id="root">
+    <div id="root" class="container">
     </div>
     <script>window.onload = () => {
       let r=document.querySelector("#root");
@@ -30,6 +70,7 @@ while (src.length > 0){
 }
 for (let k of res) {
   let d = document.createElement("div");
+  d.classList.add("item");
   let b = document.createElement("button");
   b.textContent = k;
   b.addEventListener("click",()=>{
