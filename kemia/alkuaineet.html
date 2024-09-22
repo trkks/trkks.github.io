@@ -7,8 +7,6 @@
     #root {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
     }
   </style>
   </head>
@@ -23,8 +21,14 @@ let es = {
   Hg: "elohopea",
   Pb: "lyijy",
 };
-
-for (let k of Object.keys(es)) {
+let src = Array.from(Object.keys(es));
+let res = [];
+while (src.length > 0){
+  let ri = Math.floor(Math.random() * src.length);
+  let re = src.splice(ri, 1)[0];
+  res.push(re);
+}
+for (let k of res) {
   let d = document.createElement("div");
   let b = document.createElement("button");
   b.textContent = k;
