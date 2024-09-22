@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Alkuaineet</title>
+  <style>
+    #root {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+  </style>
+  </head>
+  <body>
+    <div id="root">
+    </div>
+    <script>window.onload = () => {
+      let r=document.querySelector("#root");
+let es = {
+  H: "vety",
+  Ag: "hopea",
+  Hg: "elohopea",
+  Pb: "lyijy",
+};
+
+for (let k of Object.keys(es)) {
+  let d = document.createElement("div");
+  let b = document.createElement("button");
+  b.textContent = k;
+  b.addEventListener("click",()=>{
+    let p= document.createElement("p");
+    p.textContent= es[k];
+    d.appendChild(p);
+});
+  d.appendChild(b);
+}
+    }</script>
+  </body>
+</html>
