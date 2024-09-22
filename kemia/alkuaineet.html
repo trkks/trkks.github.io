@@ -28,7 +28,7 @@
       transition: transform 0.3s ease;
     }
 
-    .item p {
+    .item div {
       font-size: 1.2rem;
       margin: 0;
     }
@@ -44,7 +44,7 @@
         margin-bottom: 10px;
       }
 
-      .item p {
+      .item div {
         font-size: 1rem;
       }
     }
@@ -56,10 +56,74 @@
     <script>window.onload = () => {
       let r=document.querySelector("#root");
 let es = {
-  H: "vety",
-  Ag: "hopea",
-  Hg: "elohopea",
-  Pb: "lyijy",
+
+H: "vety",
+
+Ti: "titaani",
+
+He: "helium",
+
+Cr: "kromi",
+
+Li: "litium",
+
+Fe: "rauta",
+
+C: "hiili",
+
+Ni: "nikkeli",
+
+N: "typpi",
+
+Cu: "kupari",
+
+O: "happi",
+
+Zn: "sinkki",
+
+F: "fluori",
+
+Sr: "strontium",
+
+Ne: "neon",
+
+Ag: "hopea",
+
+Na: "natrium",
+
+Sn: "tina",
+
+Mg: "magnesium",
+
+I: "jodi",
+
+Al: "alumiini",
+
+Xe: "ksenon",
+
+Si: "pii",
+
+Pt: "platina",
+
+P: "fosfori",
+
+Au: "kulta",
+
+S: "rikki",
+
+Hg: "elohopea",
+
+Cl: "kloori",
+
+Pb: "lyijy",
+
+K: "kalium",
+
+Rn: "radon",
+
+Ca: "kalsium",
+
+U: "uraani",
 };
 let src = Array.from(Object.keys(es));
 let res = [];
@@ -74,7 +138,7 @@ for (let k of res) {
   let b = document.createElement("button");
   b.textContent = k;
   b.addEventListener("click",()=>{
-    let p= document.createElement("p");
+    let p= document.createElement("div");
     p.textContent= es[k];
     d.appendChild(p);
 });
