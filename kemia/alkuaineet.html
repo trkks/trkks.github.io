@@ -20,6 +20,8 @@
     }
 
     .item {
+      display: flex;
+      flex-direction: row;
       background-color: #f0f0f0;
       margin-bottom: 15px;
       padding: 20px;
@@ -52,6 +54,9 @@
   </head>
   <body>
     <div id="root" class="container">
+      <div>
+        <a href="?swap=1">🧑‍🔬</button>
+      </div>
     </div>
     <script>window.onload = () => {
       let r=document.querySelector("#root");
@@ -125,6 +130,12 @@ Ca: "kalsium",
 
 U: "uraani",
 };
+
+let ps = new URLSearchParams(window.location.search);
+if (ps.get("swap") == "1") {
+  es = Object.fromEntries(Object.entries(es).map(t=>t.reverse()));
+}
+
 let src = Array.from(Object.keys(es));
 let res = [];
 while (src.length > 0){
