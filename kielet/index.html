@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Käännä suomi-venäjä</title>
+        <script type="text/javascript" src="index.js"> </script>
+        <style>
+            #root {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1em;
+            }
+
+            #inputArea {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5em;
+            }
+
+            #keyboardArea {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            #keyboardArea > div {
+                display: flex;
+                flex-direction: row;
+                gap: 5px;
+            }
+
+            button {
+                width: 60px;
+                height: 60px;
+                font-size: 20px;
+                margin: 0;
+            }
+
+            /* Size and move the keys to match a real keyboard. */
+
+            /* Backspace. */
+            #keyboardArea > div:nth-child(1) > button:last-child {
+                width: 120px;
+            }
+
+            /* Tab. */
+            #keyboardArea > div:nth-child(2) > button:first-child {
+                width: 90px;
+            }
+
+            /* Enter. */
+            #keyboardArea > div:nth-child(2) > button:last-child {
+                width: 90px;
+            }
+
+            /* Capslock. */
+            #keyboardArea > div:nth-child(3) > button:first-child {
+                width: 110px;
+            }
+
+            /* Left shift. */
+            #keyboardArea > div:nth-child(4) > button:first-child {
+                width: 80px;
+            }
+
+            /* Right shift. */
+            #keyboardArea > div:nth-child(4) > button:nth-child(13) {
+                width: 100px;
+            }
+
+            /* Space. */
+            #keyboardArea > div:nth-child(5) > button:first-child {
+                margin-left: 245px;
+                width: 400px;
+            }
+
+            /* Left-arrow. */
+            #keyboardArea > div:nth-child(5) > button:nth-child(2) {
+                margin-left: 190px;
+            }
+
+            .button-active {
+                filter: brightness(85%);
+            }
+        </style>
+        <script type="text/javascript">
+        </script>
+    </head>
+    <body>
+        <div id="root">
+            <div id="inputArea">
+                <p id="targetWordText"></p>
+                <p id="instructionText">По-русски:</p>
+                <input type="text"/>
+                <p id="pointsText"></p>
+            </div>
+            <div id="keyboardArea">
+                <div>
+                    <button id="§">§</button>
+                    <button id="1">1</button>
+                    <button id="2">2</button>
+                    <button id="3">3</button>
+                    <button id="4">4</button>
+                    <button id="5">5</button>
+                    <button id="6">6</button>
+                    <button id="7">7</button>
+                    <button id="8">8</button>
+                    <button id="9">9</button>
+                    <button id="0">0</button>
+                    <button id="+">+</button>
+                    <button id="´">´</button>
+                    <button id="backspace">⌫</button>
+                </div>
+                <div>
+                    <button id="tab">↹</button>
+                    <button id="q">q</button>
+                    <button id="w">w</button>
+                    <button id="e">e</button>
+                    <button id="r">r</button>
+                    <button id="t">t</button>
+                    <button id="y">y</button>
+                    <button id="u">u</button>
+                    <button id="i">i</button>
+                    <button id="o">o</button>
+                    <button id="p">p</button>
+                    <button id="å">å</button>
+                    <button id="¨">¨</button>
+                    <button id="enter">↵</button>
+                </div>
+                <div>
+                    <button id="capslock">caps</button>
+                    <button id="a">a</button>
+                    <button id="s">s</button>
+                    <button id="d">d</button>
+                    <button id="f">f</button>
+                    <button id="g">g</button>
+                    <button id="h">h</button>
+                    <button id="j">j</button>
+                    <button id="k">k</button>
+                    <button id="l">l</button>
+                    <button id="ö">ö</button>
+                    <button id="ä">ä</button>
+                    <button id="'">'</button>
+                </div>
+                <div>
+                    <button id="shiftleft">⇧</button>
+                    <button id="<">&lt;</button>
+                    <button id="z">z</button>
+                    <button id="x">x</button>
+                    <button id="c">c</button>
+                    <button id="v">v</button>
+                    <button id="b">b</button>
+                    <button id="n">n</button>
+                    <button id="m">m</button>
+                    <button id=",">,</button>
+                    <button id=".">.</button>
+                    <button id="-">-</button>
+                    <button id="shiftright">⇧</button>
+                </div>
+                <div>
+                    <button id=" ">space</button>
+                    <button id="arrowleft">←</button>
+                    <button id="arrowright">→</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
