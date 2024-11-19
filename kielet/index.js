@@ -4,11 +4,23 @@ const activateButton =  (button) => {
     button.classList.add("button-active");
     setTimeout(
         () => { button.classList.remove("button-active"); },
-        150
+        100
     );
 };
 
 window.onload = () => {
+    // Mapping of key-IDs to characters to input.
+    const characters = {
+        "russian": {
+            "§": "ё",
+            "q": "й", "w": "ц", "e": "у", "r": "к", "t": "е", "y": "н", "u": "г", "i": "ш", "o": "щ", "p": "з", "å": "х", "¨": "ъ",
+            "a": "ф", "s": "ы", "d": "в", "f": "а", "g": "п", "h": "р", "j": "о", "k": "л", "l": "д", "ö": "ж", "ä": "э",
+            "z": "я", "x": "ч", "c": "с", "v": "м", "b": "и", "n": "т", "m": "ь", ",": "б", ".": "ю",
+            " ": " "
+        },
+        "finnish": {},
+    };
+
     let compositionUpdateData = "";
     // This is needed to identify "Dead" keys (e.g., pressing '^' key once in
     // order to type 'â').
@@ -18,30 +30,47 @@ window.onload = () => {
             compositionUpdateData = e.data;
         });
 
+    const inputField = document.querySelector("input");
+    let inputBuffer = "";
+
     document.addEventListener(
         "keydown",
         (e) => {
-            // Always type in the input box.
-            document.querySelector("input").focus();
+            var key = e.key.toLowerCase();
 
-            // Handle special cases.
-            let key = e.key.toLowerCase();
-            switch (e.key) {
+            switch (key) {
+                case "backspace":
+                    inputBuffer = inputBuffer.slice(0, -1);
+                    break;
+                case "capslock":
+                    // TODO: Toggle uppercase.
+                    break;
+                case "dead":
+                    // Try to sync the keypress to the "compositionupdate" event.
+                    let compositionCharacter = compositionUpdateData;
+                    compositionUpdateData = "";
+                    if (["¨"].includes(compositionCharacter)) {
+                        key = compositionCharacter;
+                    }
+                case "enter":
+                    // TODO: Check for the answer.
+                    break;
                 case "shift":
                     if (e.location == 0x01) {
                         key = "shiftleft";
                     } else if (e.location == 0x02) {
                         key = "shiftright";
                     }
+                    // TODO: Enable uppercase.
                     break;
-                case "dead":
-                    // Try to sync the keypress to the "compositionupdate" event.
-                    let compositionCharacter = compositionUpdateData;
-                    compositionUpdateData = "";
-                    if (["´", "¨"].includes(compositionCharacter)) {
-                        key = compositionCharacter;
-                    }
+                case "tab":
+                    // TODO: Skip word.
                     break;
+            }
+
+            const inputCharacter = characters["russian"][key];
+            if (inputCharacter != undefined) {
+                inputBuffer += inputCharacter;
             }
 
             // Animate the key press on screen.
@@ -50,4 +79,13 @@ window.onload = () => {
                 activateButton(button);
             }
         });
+
+    document.addEventListener("keyup", () => {
+        // Always focus on the input box.
+        inputField.focus();
+
+        // Update on keyup to prevent input field showing "real" input
+        // character in last position.
+        inputField.value = inputBuffer;
+    });
 };
