@@ -1,6 +1,6 @@
 "use strict";
 
-const activateButton =  (button) => {
+const activateButton = (button) => {
     button.classList.add("button-active");
     setTimeout(
         () => { button.classList.remove("button-active"); },
@@ -43,7 +43,14 @@ window.onload = () => {
                     inputBuffer = inputBuffer.slice(0, -1);
                     break;
                 case "capslock":
-                    // TODO: Toggle uppercase.
+                    for (const button of document.querySelectorAll("button")) {
+                        if (!["caps", "space"].includes(button.textContent)) {
+                            const inUpperCase = button.textContent.toUpperCase();
+                            button.textContent = button.textContent != inUpperCase
+                                ? inUpperCase
+                                : button.textContent.toLowerCase();
+                        }
+                    }
                     break;
                 case "dead":
                     // Try to sync the keypress to the "compositionupdate" event.
@@ -61,7 +68,6 @@ window.onload = () => {
                     } else if (e.location == 0x02) {
                         key = "shiftright";
                     }
-                    // TODO: Enable uppercase.
                     break;
                 case "tab":
                     // TODO: Skip word.
@@ -70,7 +76,9 @@ window.onload = () => {
 
             const inputCharacter = characters["russian"][key];
             if (inputCharacter != undefined) {
-                inputBuffer += inputCharacter;
+                inputBuffer += (e.shiftKey || e.getModifierState("CapsLock"))
+                    ? inputCharacter.toUpperCase()
+                    : inputCharacter;
             }
 
             // Animate the key press on screen.
