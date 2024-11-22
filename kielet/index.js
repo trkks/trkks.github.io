@@ -1,5 +1,11 @@
 "use strict";
 
+/* 
+ * TERMLIST:
+ * "Source language" = The language to translate from
+ * "Target language" = The language to translate into
+ */
+
 const activateButton = (button) => {
     button.classList.add("button-active");
     setTimeout(
@@ -8,7 +14,29 @@ const activateButton = (button) => {
     );
 };
 
+let sourceLangIdx = data["columns"].indexOf("english");
+let targetLangIdx = data["columns"].indexOf("russian");
+const columns = data["columns"].length;
+let wordMap = Object.fromEntries(
+    data["words"]
+        .filter((_, i) =>
+            sourceLangIdx == (i % columns) ||
+            targetLangIdx == (i % columns))
+        .flatMap((_, i, a) => i % 2 == 0 ? [a.slice(i, i + 2)] : [])
+);
+console.log(wordMap);
+let wordShuffle = Object.keys(wordMap);
+
+let wordElem;
+const setNextWord = () => {
+    wordElem.textContent = wordShuffle.pop();
+};
+
 window.onload = () => {
+    wordElem = document.getElementById("wordText");
+    // Set first word.
+    setNextWord();
+
     // Mapping of key-IDs to characters to input.
     const characters = {
         "russian": {
@@ -36,6 +64,8 @@ window.onload = () => {
     document.addEventListener(
         "keydown",
         (e) => {
+            inputField.classList.remove("error");
+
             var key = e.key.toLowerCase();
 
             switch (key) {
@@ -60,7 +90,13 @@ window.onload = () => {
                         key = compositionCharacter;
                     }
                 case "enter":
-                    // TODO: Check for the answer.
+                    if (wordMap[wordElem.textContent] == inputBuffer) {
+                        // TODO: Play the word spoken.
+                        inputBuffer = "";
+                        setNextWord();
+                        return;
+                    }
+                    inputField.classList.add("error");
                     break;
                 case "shift":
                     if (e.location == 0x01) {
@@ -70,7 +106,9 @@ window.onload = () => {
                     }
                     break;
                 case "tab":
-                    // TODO: Skip word.
+                    alert(`${wordElem.textContent} = ${wordMap[wordElem.textContent]}`);
+                    inputBuffer = "";
+                    setNextWord();
                     break;
             }
 

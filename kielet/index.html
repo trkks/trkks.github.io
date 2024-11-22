@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>Käännä suomi-venäjä</title>
+        <script type="text/javascript" src="data.js"> </script>
         <script type="text/javascript" src="index.js"> </script>
         <style>
             #root {
@@ -92,8 +93,14 @@
                 margin-left: 65px;
             }
 
+            /* Dynamically changing styles. */
+
             .button-active {
                 filter: brightness(85%);
+            }
+
+            .error {
+                color: red;
             }
         </style>
         <script type="text/javascript">
@@ -102,7 +109,7 @@
     <body>
         <div id="root">
             <div id="inputArea">
-                <p id="targetWordText"></p>
+                <p id="wordText"></p>
                 <p id="instructionText">По-русски:</p>
                 <input type="text"/>
                 <p id="pointsText"></p>
