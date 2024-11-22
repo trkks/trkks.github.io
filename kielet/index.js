@@ -74,11 +74,15 @@ window.onload = () => {
                     break;
             }
 
-            const inputCharacter = characters["russian"][key];
-            if (inputCharacter != undefined) {
-                inputBuffer += (e.shiftKey || e.getModifierState("CapsLock"))
-                    ? inputCharacter.toUpperCase()
-                    : inputCharacter;
+            // if control is pressed do not add stuff to buffer in order to for
+            // example allow Ctrl-A+C copying the text.
+            if (!e.ctrlKey) {
+                const inputCharacter = characters["russian"][key];
+                if (inputCharacter != undefined) {
+                    inputBuffer += (e.shiftKey || e.getModifierState("CapsLock"))
+                        ? inputCharacter.toUpperCase()
+                        : inputCharacter;
+                }
             }
 
             // Animate the key press on screen.
