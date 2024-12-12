@@ -22,5 +22,17 @@ const data = {
         "mouse", "hiiri", "мышь",
         // Greetings:
         "good morning", "hyvää huomenta", "доброе утро",
+        // Misc:
+        null, "aamiainen", "завтрак",
+        null, "aamu", "утро",
+        null, "aihe", "утром",
+        null, "aika", "время",
+        null, "aika", "пора",
+        null, "aikaisemmin", "раньще",
+        null, "aikaisin", "рано",
+        null, "aikakauslehti", "журнал",
+        null, "aikataulu", "расписание",
+        null, "aina", "всегда",
+        null, "ainoastaan", "только",
     ]
 };
