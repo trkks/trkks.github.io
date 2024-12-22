@@ -34,19 +34,9 @@ const setNextWord = () => {
 
 window.onload = () => {
     wordElem = document.getElementById("wordText");
+    const inputField = document.getElementById("answerInput");
     // Set first word.
     setNextWord();
-
-    let compositionUpdateData = "";
-    // This is needed to identify "Dead" keys (e.g., pressing '^' key once in
-    // order to type 'â').
-    document.addEventListener(
-        "compositionupdate",
-        (e) => {
-            compositionUpdateData = e.data;
-        });
-
-    const inputField = document.querySelector("input");
 
     document.addEventListener(
         "keydown",
@@ -65,10 +55,10 @@ window.onload = () => {
                     }
                     break;
                 case "Enter":
-                    const answer = document.getElementById("answerInput").value;
+                    const answer = inputField.value;
                     if (wordMap[wordElem.textContent] == answer) {
                         // TODO: Play the word spoken.
-                        document.getElementById("answerInput").value = "";
+                        inputField.value = "";
                         setNextWord();
                         return;
                     }
@@ -76,6 +66,7 @@ window.onload = () => {
                     break;
                 case "Tab":
                     alert(`${wordElem.textContent} = ${wordMap[wordElem.textContent]}`);
+                    inputField.value = "";
                     setNextWord();
                     break;
             }
