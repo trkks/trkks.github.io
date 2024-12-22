@@ -116,6 +116,10 @@
             .error {
                 color: red;
             }
+
+            .hidden {
+                display: none;
+            }
         </style>
         <script type="text/javascript">
         </script>
@@ -132,7 +136,8 @@
                 <div>
                     <button id="Backquote">
                         <div>§</div>
-                        <div>ё</div>
+                        <div>§</div>
+                        <div class="hidden">ё</div>
                     </button>
                     <button id="1">1</button>
                     <button id="2">2</button>
@@ -150,51 +155,63 @@
                     <button id="tab">↹</button>
                     <button id="KeyQ">
                         <div>q</div>
-                        <div>й</div>
+                        <div>q</div>
+                        <div class="hidden">й</div>
                     </button>
                     <button id="KeyW">
                         <div>w</div>
-                        <div>ц</div>
+                        <div>w</div>
+                        <div class="hidden">ц</div>
                     </button>
                     <button id="KeyE">
                         <div>e</div>
-                        <div>у</div>
+                        <div>e</div>
+                        <div class="hidden">у</div>
                     </button>
                     <button id="KeyR">
                         <div>r</div>
-                        <div>к</div>
+                        <div>r</div>
+                        <div class="hidden">к</div>
                     </button>
                     <button id="KeyT">
                         <div>t</div>
-                        <div>е</div>
+                        <div>t</div>
+                        <div class="hidden">е</div>
                     </button>
                     <button id="KeyY">
                         <div>y</div>
-                        <div>н</div>
+                        <div>y</div>
+                        <div class="hidden">н</div>
                     </button>
                     <button id="KeyU">
                         <div>u</div>
-                        <div>г</div>
+                        <div>u</div>
+                        <div class="hidden">г</div>
                     </button>
                     <button id="KeyI">
                         <div>i</div>
-                        <div>ш</div>
+                        <div>i</div>
+                        <div class="hidden">ш</div>
                     </button>
                     <button id="KeyO">
                         <div>o</div>
-                        <div>щ</div>
+                        <div>o</div>
+                        <div class="hidden">щ</div>
                     </button>
                     <button id="KeyP">
                         <div>p</div>
-                        <div>з</div>
+                        <div>p</div>
+                        <div class="hidden">з</div>
                     </button>
                     <button id="BracketLeft">
                         <div>å</div>
-                        <div>х</div>
+                        <div>å</div>
+                        <div class="hidden">х</div>
                     </button>
                     <button id="BracketRight">
                         <div>"</div>
-                        <div>ъ</div>
+                        <div>"</div>
+                        <div class="hidden">ъ</div>
                     </button>
                     <button id="enter">↵</button>
                 </div>
@@ -202,47 +219,58 @@
                     <button id="capslock">caps</button>
                     <button id="KeyA">
                         <div>a</div>
-                        <div>ф</div>
+                        <div>a</div>
+                        <div class="hidden">ф</div>
                     </button>
                     <button id="KeyS">
                         <div>s</div>
-                        <div>ы</div>
+                        <div>s</div>
+                        <div class="hidden">ы</div>
                     </button>
                     <button id="KeyD">
                         <div>d</div>
-                        <div>в</div>
+                        <div>d</div>
+                        <div class="hidden">в</div>
                     </button>
                     <button id="KeyF">
                         <div>f</div>
-                        <div>а</div>
+                        <div>f</div>
+                        <div class="hidden">а</div>
                     </button>
                     <button id="KeyG">
                         <div>g</div>
-                        <div>п</div>
+                        <div>g</div>
+                        <div class="hidden">п</div>
                     </button>
                     <button id="KeyH">
                         <div>h</div>
-                        <div>р</div>
+                        <div>h</div>
+                        <div class="hidden">р</div>
                     </button>
                     <button id="KeyJ">
                         <div>j</div>
-                        <div>о</div>
+                        <div>j</div>
+                        <div class="hidden">о</div>
                     </button>
                     <button id="KeyK">
                         <div>k</div>
-                        <div>л</div>
+                        <div>k</div>
+                        <div class="hidden">л</div>
                     </button>
                     <button id="KeyL">
                         <div>l</div>
-                        <div>д</div>
+                        <div>l</div>
+                        <div class="hidden">д</div>
                     </button>
                     <button id="Semicolon">
                         <div>ö</div>
-                        <div>ж</div>
+                        <div>ö</div>
+                        <div class="hidden">ж</div>
                     </button>
                     <button id="Quote">
                         <div>ä</div>
-                        <div>э</div>
+                        <div>ä</div>
+                        <div class="hidden">э</div>
                     </button>
                     <button id="'">'</button>
                 </div>
@@ -250,39 +278,48 @@
                     <button id="ShiftLeft">⇧</button>
                     <button id="KeyZ">
                         <div>z</div>
-                        <div>я</div>
+                        <div>z</div>
+                        <div class="hidden">я</div>
                     </button>
                     <button id="KeyX">
                         <div>x</div>
-                        <div>ч</div>
+                        <div>x</div>
+                        <div class="hidden">ч</div>
                     </button>
                     <button id="KeyC">
                         <div>c</div>
-                        <div>с</div>
+                        <div>c</div>
+                        <div class="hidden">с</div>
                     </button>
                     <button id="KeyV">
                         <div>v</div>
-                        <div>м</div>
+                        <div>v</div>
+                        <div class="hidden">м</div>
                     </button>
                     <button id="KeyB">
                         <div>b</div>
-                        <div>и</div>
+                        <div>b</div>
+                        <div class="hidden">и</div>
                     </button>
                     <button id="KeyN">
                         <div>n</div>
-                        <div>т</div>
+                        <div>n</div>
+                        <div class="hidden">т</div>
                     </button>
                     <button id="KeyM">
                         <div>m</div>
-                        <div>ь</div>
+                        <div>m</div>
+                        <div class="hidden">ь</div>
                     </button>
                     <button id="Comma">
                         <div>,</div>
-                        <div>б</div>
+                        <div>,</div>
+                        <div class="hidden">б</div>
                     </button>
                     <button id="Period">
                         <div>.</div>
-                        <div>ю</div>
+                        <div>.</div>
+                        <div class="hidden">ю</div>
                     </button>
                     <button id="-">-</button>
                     <button id="ShiftRight">⇧</button>
