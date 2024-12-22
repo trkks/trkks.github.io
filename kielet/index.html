@@ -32,20 +32,6 @@
                 gap: 5px;
             }
 
-            /* Styling both languages' characters on the keys. */
-            #keyboardArea button > div:first-child {
-                font-size: 110%;
-                padding-top: 10%;
-                padding-right: 40%;
-            }
-
-            #keyboardArea button > div:nth-child(2) {
-                font-size: 90%;
-                color: gray;
-                padding-bottom: 10%;
-                padding-left: 40%;
-            }
-
             button {
                 width: 60px;
                 height: 60px;
@@ -120,6 +106,24 @@
             .hidden {
                 display: none;
             }
+
+            /* Styling both languages' characters on the keys. */
+            .targetLang {
+                position: relative;
+                font-size: 110%;
+                bottom: 40%;
+                padding-right: 40%;
+            }
+
+            .sourceLang {
+                position: relative;
+                font-size: 90%;
+                color: gray;
+                bottom: -45%;
+                padding-left: 40%;
+            }
+
+
         </style>
         <script type="text/javascript">
         </script>
@@ -139,20 +143,20 @@
                         <div>§</div>
                         <div class="hidden">ё</div>
                     </button>
-                    <button id="1">1</button>
-                    <button id="2">2</button>
-                    <button id="3">3</button>
-                    <button id="4">4</button>
-                    <button id="5">5</button>
-                    <button id="6">6</button>
-                    <button id="7">7</button>
-                    <button id="8">8</button>
-                    <button id="9">9</button>
-                    <button id="0">0</button>
-                    <button id="backspace">⌫</button>
+                    <button id="1" class="static">1</button>
+                    <button id="2" class="static">2</button>
+                    <button id="3" class="static">3</button>
+                    <button id="4" class="static">4</button>
+                    <button id="5" class="static">5</button>
+                    <button id="6" class="static">6</button>
+                    <button id="7" class="static">7</button>
+                    <button id="8" class="static">8</button>
+                    <button id="9" class="static">9</button>
+                    <button id="0" class="static">0</button>
+                    <button id="backspace" class="static">⌫</button>
                 </div>
                 <div>
-                    <button id="tab">↹</button>
+                    <button id="tab" class="static">↹</button>
                     <button id="KeyQ">
                         <div>q</div>
                         <div>q</div>
@@ -213,10 +217,10 @@
                         <div>"</div>
                         <div class="hidden">ъ</div>
                     </button>
-                    <button id="enter">↵</button>
+                    <button id="enter" class="static">↵</button>
                 </div>
                 <div>
-                    <button id="capslock">caps</button>
+                    <button id="capslock" class="static">caps</button>
                     <button id="KeyA">
                         <div>a</div>
                         <div>a</div>
@@ -272,10 +276,10 @@
                         <div>ä</div>
                         <div class="hidden">э</div>
                     </button>
-                    <button id="'">'</button>
+                    <button id="'" class="static">'</button>
                 </div>
                 <div>
-                    <button id="ShiftLeft">⇧</button>
+                    <button id="ShiftLeft" class="static">⇧</button>
                     <button id="KeyZ">
                         <div>z</div>
                         <div>z</div>
@@ -321,13 +325,13 @@
                         <div>.</div>
                         <div class="hidden">ю</div>
                     </button>
-                    <button id="-">-</button>
-                    <button id="ShiftRight">⇧</button>
+                    <button id="-" class="static">-</button>
+                    <button id="ShiftRight" class="static">⇧</button>
                 </div>
                 <div>
-                    <button id="Space">space</button>
-                    <button id="arrowleft">←</button>
-                    <button id="arrowright">→</button>
+                    <button id="Space" class="static">space</button>
+                    <button id="arrowleft" class="static">←</button>
+                    <button id="arrowright" class="static">→</button>
                 </div>
             </div>
         </div>

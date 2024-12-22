@@ -33,6 +33,27 @@ const setNextWord = () => {
 };
 
 window.onload = () => {
+    // Show the characters on keys that are subject for translation (keys
+    // belonging to selected language pair).
+    const keys = document.querySelectorAll("#keyboardArea button");
+    for (const key of keys) {
+        if (key.classList.contains("static")) {
+            continue;
+        }
+        console.log(key.classList);
+        const langKeys = key.querySelectorAll("div");
+        for (const langKey of langKeys) {
+            langKey.classList.add("hidden");
+        }
+        langKeys[sourceLangIdx].classList.remove("hidden");
+        langKeys[targetLangIdx].classList.remove("hidden");
+        // Set the styling of the key based on source and target language
+        // (target language should be highlighted to help user navigate the
+        // target keyboard).
+        langKeys[sourceLangIdx].classList.add("sourceLang");
+        langKeys[targetLangIdx].classList.add("targetLang");
+    }
+
     wordElem = document.getElementById("wordText");
     const inputField = document.getElementById("answerInput");
     // Set first word.
