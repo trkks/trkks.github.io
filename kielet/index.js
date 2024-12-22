@@ -14,7 +14,7 @@ const activateButton = (button) => {
     );
 };
 
-let sourceLangIdx = data["columns"].indexOf("english");
+let sourceLangIdx = data["columns"].indexOf("finnish");
 let targetLangIdx = data["columns"].indexOf("russian");
 const columns = data["columns"].length;
 let wordMap = Object.fromEntries(
@@ -51,8 +51,6 @@ window.onload = () => {
     document.addEventListener(
         "keydown",
         (e) => {
-            console.log(e.code);
-
             inputField.classList.remove("error");
 
             switch (e.code) {
@@ -70,6 +68,7 @@ window.onload = () => {
                     const answer = document.getElementById("answerInput").value;
                     if (wordMap[wordElem.textContent] == answer) {
                         // TODO: Play the word spoken.
+                        document.getElementById("answerInput").value = "";
                         setNextWord();
                         return;
                     }
