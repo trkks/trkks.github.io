@@ -25,11 +25,26 @@ let wordMap = Object.fromEntries(
         .flatMap((_, i, a) => i % 2 == 0 ? [a.slice(i, i + 2)] : [])
 );
 console.log(wordMap);
-let wordShuffle = Object.keys(wordMap);
+
+/**
+ * Shuffle words (Fisher-Yates).
+ */
+const shuffle = (xs) => {
+    for (let i = xs.length - 1; 0 <= i; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const x = xs[i];
+        xs[i] = xs[j];
+        xs[j] = x;
+    }
+    return xs;
+};
+
+let sourceWords = shuffle(Object.keys(wordMap));
+console.log(sourceWords);
 
 let wordElem;
 const setNextWord = () => {
-    wordElem.textContent = wordShuffle.pop();
+    wordElem.textContent = sourceWords.pop();
 };
 
 window.onload = () => {
@@ -40,7 +55,6 @@ window.onload = () => {
         if (key.classList.contains("static")) {
             continue;
         }
-        console.log(key.classList);
         const langKeys = key.querySelectorAll("div");
         for (const langKey of langKeys) {
             langKey.classList.add("hidden");
