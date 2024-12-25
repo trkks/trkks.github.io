@@ -19,13 +19,35 @@ body {
 
 #inputArea {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     gap: 0.5em;
 }
 
-#inputArea > p:first-child {
-    margin-top: 0;
+#arrow {
+    font-size: 1em;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+input[type=text] {
+    font-size: 1em;
+    width: 100%;
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+#pointsText {
+    margin-left: 5%;
+    border-style: bold;
+    border-radius: 2px;
+    background-color: whitesmoke;
+    box-shadow: 1px 1px 1px 0px black;
+}
+
+#pointsText p {
+    padding: 0.25em;
+    margin: 0;
 }
 
 #keyboardArea {
@@ -115,6 +137,10 @@ button {
 
 .hidden {
     display: none;
+}
+
+.good {
+    color: green;
 }
 
 /* Styling both languages' characters on the keys. */

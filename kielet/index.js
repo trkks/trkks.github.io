@@ -44,7 +44,26 @@ console.log(sourceWords);
 
 let wordElem;
 const setNextWord = () => {
-    wordElem.textContent = sourceWords.pop();
+    wordElem.value = sourceWords.pop();
+};
+
+let points = 0;
+
+const putPoints = (n) => {
+    const pointsElem = document.getElementById("pointsText").querySelector("p");
+
+    points += n;
+
+    pointsElem.classList.remove("error");
+    pointsElem.classList.remove("good");
+
+    if (n > 0) {
+        pointsElem.classList.add("good");
+    } else if (n < 0) {
+        pointsElem.classList.add("error");
+    }
+
+    pointsElem.textContent = `${points}p`;
 };
 
 window.onload = () => {
@@ -73,6 +92,8 @@ window.onload = () => {
     // Set first word.
     setNextWord();
 
+    putPoints(0);
+
     document.addEventListener(
         "keydown",
         (e) => {
@@ -91,16 +112,24 @@ window.onload = () => {
                     break;
                 case "Enter":
                     const answer = inputField.value;
-                    if (wordMap[wordElem.textContent] == answer) {
+                    if (wordMap[wordElem.value] == answer) {
+                        putPoints(10);
+
                         // TODO: Play the word spoken.
+
                         inputField.value = "";
                         setNextWord();
                         return;
+                    } else {
+                        putPoints(-3);
+
+                        inputField.classList.add("error");
                     }
-                    inputField.classList.add("error");
                     break;
                 case "Tab":
-                    alert(`${wordElem.textContent} = ${wordMap[wordElem.textContent]}`);
+                    putPoints(-5);
+
+                    alert(`${wordElem.value} = ${wordMap[wordElem.value]}`);
                     inputField.value = "";
                     setNextWord();
                     break;
