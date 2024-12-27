@@ -70,7 +70,7 @@ let inputField;
 
 const handleEnter = () => {
     const answer = inputField.value;
-    if (wordMap[wordElem.value] == answer) {
+    if (wordMap[wordElem.value].toLowerCase() == answer.toLowerCase()) {
         putPoints(10);
 
         // TODO: Play the word spoken.
