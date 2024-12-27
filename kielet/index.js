@@ -50,7 +50,7 @@ const setNextWord = () => {
 let points = 0;
 
 const putPoints = (n) => {
-    const pointsElem = document.getElementById("pointsText").querySelector("p");
+    const pointsElem = document.getElementById("pointsText");
 
     points += n;
 
@@ -66,7 +66,38 @@ const putPoints = (n) => {
     pointsElem.textContent = `${points}p`;
 };
 
+let inputField;
+
+const handleEnter = () => {
+    const answer = inputField.value;
+    if (wordMap[wordElem.value] == answer) {
+        putPoints(10);
+
+        // TODO: Play the word spoken.
+
+        inputField.value = "";
+        setNextWord();
+        return;
+    } else {
+        putPoints(-3);
+
+        inputField.classList.add("error");
+    }
+};
+
+const handleTab = () => {
+    putPoints(-5);
+
+    alert(`${wordElem.value} = ${wordMap[wordElem.value]}`);
+    inputField.value = "";
+    setNextWord();
+};
+
 window.onload = () => {
+    // Add virtual key listeners for mobile layout.
+    document.getElementById("enter").addEventListener("click", handleEnter);
+    document.getElementById("tab").addEventListener("click", handleTab);
+
     // Show the characters on keys that are subject for translation (keys
     // belonging to selected language pair).
     const keys = document.querySelectorAll("#keyboardArea button");
@@ -88,7 +119,7 @@ window.onload = () => {
     }
 
     wordElem = document.getElementById("wordText");
-    const inputField = document.getElementById("answerInput");
+    inputField = document.getElementById("answerInput");
     // Set first word.
     setNextWord();
 
@@ -111,27 +142,10 @@ window.onload = () => {
                     }
                     break;
                 case "Enter":
-                    const answer = inputField.value;
-                    if (wordMap[wordElem.value] == answer) {
-                        putPoints(10);
-
-                        // TODO: Play the word spoken.
-
-                        inputField.value = "";
-                        setNextWord();
-                        return;
-                    } else {
-                        putPoints(-3);
-
-                        inputField.classList.add("error");
-                    }
+                    handleEnter();
                     break;
                 case "Tab":
-                    putPoints(-5);
-
-                    alert(`${wordElem.value} = ${wordMap[wordElem.value]}`);
-                    inputField.value = "";
-                    setNextWord();
+                    handleTab();
                     break;
             }
 

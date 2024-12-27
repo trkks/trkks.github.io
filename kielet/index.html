@@ -10,13 +10,16 @@
     <body>
         <div id="root">
             <div id="inputArea">
-                <label for="wordText">Suomeksi</label>
-                <input id="wordText" type="text" disabled/>
-                <p id="arrow">►</p>
-                <label for="answerInput">По-русски</label>
-                <input id="answerInput" type="text"/>
-                <div id="pointsText">
-                    <p></p>
+                <div>
+                    <label for="wordText">Suomeksi</label>
+                    <input id="wordText" type="text" disabled/>
+                </div>
+                <div>
+                    <label for="answerInput">По-русски</label>
+                    <input id="answerInput" type="text"/>
+                </div>
+                <div>
+                    <p id="pointsText"></p>
                 </div>
             </div>
             <div id="keyboardArea">
@@ -39,7 +42,7 @@
                     <button id="backspace" class="static">⌫</button>
                 </div>
                 <div>
-                    <button id="tab" class="static">↹</button>
+                    <button id="tab" class="static coreControl">↹</button>
                     <button id="KeyQ">
                         <div>q</div>
                         <div>q</div>
@@ -100,7 +103,7 @@
                         <div>"</div>
                         <div class="hidden">ъ</div>
                     </button>
-                    <button id="enter" class="static">↵</button>
+                    <button id="enter" class="static coreControl">↵</button>
                 </div>
                 <div>
                     <button id="capslock" class="static">caps</button>
