@@ -43,8 +43,25 @@ let sourceWords = shuffle(Object.keys(wordMap));
 console.log(sourceWords);
 
 let wordElem;
-const setNextWord = () => {
-    wordElem.value = sourceWords.pop();
+let prevWordElem;
+let oldWordElem;
+
+let inputField;
+let prevInputField;
+let oldInputField;
+
+const rotateWords = (doPop) => {
+    oldWordElem.value = prevWordElem.value;
+    prevWordElem.value = wordElem.value;
+    if (doPop) {
+        wordElem.value = sourceWords.pop();
+    }
+
+    oldInputField.value = prevInputField.value;
+    prevInputField.value = inputField.value;
+
+    // This also keeps mobile keyboard visible between switches(?).
+    inputField.focus();
 };
 
 let points = 0;
@@ -55,18 +72,14 @@ const putPoints = (n) => {
 
     points += n;
 
-    pointsElem.classList.remove("error");
-    pointsElem.classList.remove("good");
     oldPointsElem.classList = prevPointsElem.classList;
 
     let pointValue = "0p";
     if (n > 0) {
-        pointsElem.classList.add("good");
         prevPointsElem.classList.remove("error");
         prevPointsElem.classList.add("good");
         pointValue = `+${n}p`;
     } else if (n < 0) {
-        pointsElem.classList.add("error");
         prevPointsElem.classList.remove("good");
         prevPointsElem.classList.add("error");
         pointValue = `${n}p`;
@@ -77,36 +90,29 @@ const putPoints = (n) => {
     prevPointsElem.value = pointValue;
 };
 
-let inputField;
-
 const handleEnter = () => {
     const answer = inputField.value;
     if (wordMap[wordElem.value].toLowerCase() == answer.toLowerCase()) {
         putPoints(10);
+        rotateWords(true);
 
         // TODO: Play the word spoken.
 
         inputField.value = "";
-        setNextWord();
     } else {
         putPoints(-3);
+        rotateWords();
 
         inputField.classList.add("error");
     }
-
-    // Keep mobile keyboard visible(?).
-    inputField.focus();
 };
 
 const handleTab = () => {
     putPoints(-5);
 
-    alert(`${wordElem.value} = ${wordMap[wordElem.value]}`);
+    inputField.value = wordMap[wordElem.value];
+    rotateWords(true);
     inputField.value = "";
-    setNextWord();
-
-    // Keep mobile keyboard visible(?).
-    inputField.focus();
 };
 
 window.onload = () => {
@@ -134,10 +140,10 @@ window.onload = () => {
         langKeys[targetLangIdx].classList.add("targetLang");
     }
 
-    wordElem = document.getElementById("wordText");
-    inputField = document.getElementById("answerInput");
+    [wordElem, prevWordElem, oldWordElem] = document.querySelectorAll(".wordField");
+    [inputField, prevInputField, oldInputField] = document.querySelectorAll(".answerField");
     // Set first word.
-    setNextWord();
+    rotateWords(true);
 
     document.addEventListener(
         "keydown",
