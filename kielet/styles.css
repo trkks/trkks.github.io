@@ -8,7 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1em;
+    gap: 0.25em;
 
     padding: 2%;
     width: 75%;
@@ -17,21 +17,19 @@ body {
     background-color: lightgray;
 }
 
-#inputArea {
+.inputArea {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 3em;
 }
 
-#inputArea > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.inputArea:nth-of-type(2) {
+    opacity: 50%;
 }
 
-#arrow {
-    font-size: 1em;
+.inputArea:nth-of-type(3) {
+    opacity: 20%;
 }
 
 input[type=text] {
@@ -41,20 +39,23 @@ input[type=text] {
     text-align: center;
 }
 
-#pointsText {
-    text-align: center;
-    border-style: bold;
-    border-radius: 2px;
-    background-color: whitesmoke;
-    box-shadow: 1px 1px 1px 0px black;
-    padding: 0.25em;
-    margin: 0;
+.inputArea > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.inputArea > div:last-child {
+    width: 7em;
 }
 
 #keyboardArea {
     display: flex;
     flex-direction: column;
     gap: 5px;
+
+    margin-top: 2%;
 }
 
 #keyboardArea > div {
@@ -172,14 +173,14 @@ button {
         padding: 0;
     }
 
-    #inputArea {
+    .inputArea {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 1em;
     }
 
-    label[for=answerInput] {
+    label {
         margin-top: 10%;
     }
 

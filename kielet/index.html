@@ -10,17 +10,40 @@
     </head>
     <body>
         <div id="root">
-            <div id="inputArea">
+            <div class="inputArea">
                 <div>
                     <label for="wordText">Suomeksi</label>
-                    <input id="wordText" type="text" disabled/>
+                    <input id="wordText" type="text" readonly/>
                 </div>
                 <div>
                     <label for="answerInput">По-русски</label>
                     <input id="answerInput" type="text"/>
                 </div>
                 <div>
-                    <p id="pointsText"></p>
+                    <label for="pointsText">Точки</label>
+                    <input class="pointsField" id="pointsText" type="text" readonly/>
+                </div>
+            </div>
+            <div class="inputArea">
+                <div>
+                    <input class="wordField" type="text" readonly/>
+                </div>
+                <div>
+                    <input class="answerField" type="text" readonly/>
+                </div>
+                <div>
+                    <input class="pointsField" type="text" readonly/>
+                </div>
+            </div>
+            <div class="inputArea">
+                <div>
+                    <input class="wordField" type="text" readonly/>
+                </div>
+                <div>
+                    <input class="answerField" type="text" readonly/>
+                </div>
+                <div>
+                    <input class="pointsField" type="text" readonly/>
                 </div>
             </div>
             <div id="keyboardArea">

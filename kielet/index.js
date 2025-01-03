@@ -63,7 +63,7 @@ const putPoints = (n) => {
         pointsElem.classList.add("error");
     }
 
-    pointsElem.textContent = `${points}p`;
+    pointsElem.value = `${points}p`;
 };
 
 let inputField;
@@ -77,12 +77,14 @@ const handleEnter = () => {
 
         inputField.value = "";
         setNextWord();
-        return;
     } else {
         putPoints(-3);
 
         inputField.classList.add("error");
     }
+
+    // Keep mobile keyboard visible(?).
+    inputField.focus();
 };
 
 const handleTab = () => {
@@ -91,6 +93,9 @@ const handleTab = () => {
     alert(`${wordElem.value} = ${wordMap[wordElem.value]}`);
     inputField.value = "";
     setNextWord();
+
+    // Keep mobile keyboard visible(?).
+    inputField.focus();
 };
 
 window.onload = () => {
