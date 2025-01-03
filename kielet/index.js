@@ -14,8 +14,10 @@ const activateButton = (button) => {
     );
 };
 
-let sourceLangIdx = data["columns"].indexOf("finnish");
-let targetLangIdx = data["columns"].indexOf("russian");
+let sourceLang = "finnish";
+let targetLang = "russian";
+let sourceLangIdx = data["columns"].indexOf(sourceLang);
+let targetLangIdx = data["columns"].indexOf(targetLang);
 const columns = data["columns"].length;
 let wordMap = Object.fromEntries(
     data["words"]
@@ -65,11 +67,11 @@ const rotateWords = (doPop) => {
 };
 
 let points = 0;
+let pointsElem;
+let prevPointsElem;
+let oldPointsElem;
 
 const putPoints = (n) => {
-    const [pointsElem, prevPointsElem, oldPointsElem] =
-        document.querySelectorAll(".pointsField");
-
     points += n;
 
     oldPointsElem.classList = prevPointsElem.classList;
@@ -140,8 +142,26 @@ window.onload = () => {
         langKeys[targetLangIdx].classList.add("targetLang");
     }
 
-    [wordElem, prevWordElem, oldWordElem] = document.querySelectorAll(".wordField");
-    [inputField, prevInputField, oldInputField] = document.querySelectorAll(".answerField");
+    [wordElem, prevWordElem, oldWordElem] =
+        document.querySelectorAll(".wordField");
+    [inputField, prevInputField, oldInputField] =
+        document.querySelectorAll(".answerField");
+    [pointsElem, prevPointsElem, oldPointsElem] =
+        document.querySelectorAll(".pointsField");
+
+
+    // Add flag icons next to the language fields.
+    wordElem.classList.add(sourceLang);
+    prevWordElem.classList.add(sourceLang);
+    oldWordElem.classList.add(sourceLang);
+
+    inputField.classList.add(targetLang);
+    prevInputField.classList.add(targetLang);
+    oldInputField.classList.add(targetLang);
+
+    pointsElem.classList.add(targetLang);
+
+
     // Set first word.
     rotateWords(true);
 

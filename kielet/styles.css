@@ -17,6 +17,8 @@ body {
     background-color: lightgray;
 }
 
+/* Input area(s). */
+
 .inputArea {
     display: flex;
     flex-direction: row;
@@ -49,6 +51,8 @@ input[type=text] {
 .inputArea > div:last-child {
     width: 7em;
 }
+
+/* Virtual keyboard. */
 
 #keyboardArea {
     display: flex;
@@ -150,6 +154,14 @@ button {
     color: green;
 }
 
+/* Field labels. */
+.inputArea:first-child div:has(> .english):before { content: 'In English'; }
+.inputArea:first-child div:has(> .english.pointsField):before { content: 'Points'; }
+.inputArea:first-child div:has(> .russian):before { content: 'По-русски'; }
+.inputArea:first-child div:has(> .russian.pointsField):before { content: 'Точки'; }
+.inputArea:first-child div:has(> .finnish):before { content: 'Suomeksi'; }
+.inputArea:first-child div:has(> .finnish.pointsField):before { content: 'Pisteet'; }
+
 /* Styling both languages' characters on the keys. */
 .targetLang {
     position: relative;
@@ -177,7 +189,14 @@ button {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1em;
+        gap: 0.5em;
+    }
+
+    .inputArea > div {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0.5em;
     }
 
     label {
@@ -191,4 +210,20 @@ button {
     #keyboardArea button {
         font-size: 40px;
     }
+
+    /* Field icons. NOTE: Why are these so complicated? */
+    .inputArea             div:has(> .english):before { content: '🇬🇧'; }
+    .inputArea:first-child div:has(> .english):before { content: '🇬🇧'; }
+    .inputArea:first-child div:has(> .english.pointsField):before { content: '⭐'; }
+
+    .inputArea             div:has(> .russian):before { content: '🇷🇺'; }
+    .inputArea:first-child div:has(> .russian):before { content: '🇷🇺'; }
+    .inputArea:first-child div:has(> .russian.pointsField):before { content: '⭐'; }
+
+    .inputArea             div:has(> .finnish):before { content: '🇫🇮'; }
+    .inputArea:first-child div:has(> .finnish):before { content: '🇫🇮'; }
+    .inputArea:first-child div:has(> .finnish.pointsField):before { content: '⭐'; }
+
+                           div:has(> .pointsField):before { content: '⭐'; }
+    .inputArea:first-child div:has(> .pointsField):before { content: '⭐'; }
 }
