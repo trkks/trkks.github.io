@@ -167,6 +167,11 @@ button {
 
 /* Mobile layout */
 @media screen and (max-width: 75rem) {
+    #root {
+        width: 100%;
+        padding: 0;
+    }
+
     #inputArea {
         display: flex;
         flex-direction: column;
@@ -180,5 +185,9 @@ button {
 
     #keyboardArea * :not(.coreControl) {
         display: none;
+    }
+
+    #keyboardArea button {
+        font-size: 40px;
     }
 }
