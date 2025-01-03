@@ -50,20 +50,31 @@ const setNextWord = () => {
 let points = 0;
 
 const putPoints = (n) => {
-    const pointsElem = document.getElementById("pointsText");
+    const [pointsElem, prevPointsElem, oldPointsElem] =
+        document.querySelectorAll(".pointsField");
 
     points += n;
 
     pointsElem.classList.remove("error");
     pointsElem.classList.remove("good");
+    oldPointsElem.classList = prevPointsElem.classList;
 
+    let pointValue = "0p";
     if (n > 0) {
         pointsElem.classList.add("good");
+        prevPointsElem.classList.remove("error");
+        prevPointsElem.classList.add("good");
+        pointValue = `+${n}p`;
     } else if (n < 0) {
         pointsElem.classList.add("error");
+        prevPointsElem.classList.remove("good");
+        prevPointsElem.classList.add("error");
+        pointValue = `${n}p`;
     }
 
     pointsElem.value = `${points}p`;
+    oldPointsElem.value = prevPointsElem.value;
+    prevPointsElem.value = pointValue;
 };
 
 let inputField;
@@ -127,8 +138,6 @@ window.onload = () => {
     inputField = document.getElementById("answerInput");
     // Set first word.
     setNextWord();
-
-    putPoints(0);
 
     document.addEventListener(
         "keydown",
