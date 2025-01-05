@@ -113,7 +113,12 @@ const handleTab = () => {
     putPoints(-5);
 
     inputField.value = wordMap[wordElem.value];
+
+    // Put the word back to the deck to try again later.
+    const failedWord = wordElem.value;
     rotateWords(true);
+    sourceWords.splice(0, 0, failedWord);
+
     inputField.value = "";
 };
 
