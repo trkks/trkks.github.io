@@ -25,7 +25,8 @@ const data = {
         // Misc:
         null, "aamiainen", "завтрак",
         null, "aamu", "утро",
-        null, "aihe", "утром",
+        null, "aamulla", "утром",
+        null, "aihe", "тема",
         // TODO: Handle synonyms like these:
         null, "aika", "время",
         null, "aika", "пора",
