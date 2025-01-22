@@ -22,11 +22,18 @@ const data = {
         "mouse", "hiiri", "мышь",
         // Greetings:
         "good morning", "hyvää huomenta", "доброе утро",
+        null, "hyvää päivää", "добрый день",
+        null, "hyvää iltaa", "добрый вечер",
+        null, "hyvää yötä", "спокойной ночи",
         // Misc:
         null, "aamiainen", "завтрак",
-        null, "aamu", "утро",
         null, "aamulla", "утром",
         null, "aihe", "тема",
+        // Time:
+        null, "aamu", "утро",
+        null, "päivä", "день",
+        null, "ilta", "вечер",
+        null, "yö", "ночь",
         // TODO: Handle synonyms like these:
         null, "aika", "время",
         null, "aika", "пора",
@@ -36,5 +43,10 @@ const data = {
         null, "aikataulu", "расписание",
         null, "aina", "всегда",
         null, "ainoastaan", "только",
+        null, "missä", "где",
+        null, "kiitos", "спасибо",
+        null, "laukku", "сумка",
+        null, "minä en tiedä", "я не знаю",
+        null, "lähdetään", "поехали",
     ]
 };
