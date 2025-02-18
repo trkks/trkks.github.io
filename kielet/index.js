@@ -26,6 +26,9 @@ let wordMap = Object.fromEntries(
             targetLangIdx == (i % columns))
         .flatMap((_, i, a) => i % 2 == 0 ? [a.slice(i, i + 2)] : [])
 );
+for (let word of data["gpt"]) {
+    wordMap[word["FI"]] = word["RU"];
+}
 console.log(wordMap);
 
 /**
